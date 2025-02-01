@@ -3,7 +3,7 @@
 
 ## Project for "Numerical methods for PDEs 2024"
 
-In the following discussion, some applications of the Galerkin discretization method will be presented for both stationary and evolutionary problems. The general model considered will be the Reaction-Diffusion-Convection model, initially in its stationary form.
+This work is an application of the Galerkin discretization method for both stationary and evolutionary problems. The general model considered is the Reaction-Diffusion-Convection model, initially in its stationary form.
 <br>
 ![immagine](https://github.com/user-attachments/assets/7148bfa8-0a74-410b-8727-b28cbb29cc41)
 <br>
