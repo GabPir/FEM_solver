@@ -9,7 +9,7 @@ This work is an application of the Galerkin discretization method for both stati
 <br>
 The Galerkin method provides an approximate solution to the problem in its variational form, defined in the finite space V_h. The choice of V_h depends on the type of finite element selected and the regularity of the solution. Under appropriate assumptions, the Lax-Milgram theorem guarantees the existence and uniqueness of the approximate solution, as well as its continuous dependence on the data. 
 <br>
-The extension to the time-dependent case will concern the problem:
+The extension to the time-dependent case concerns the problem:
 <br>
 ![immagine](https://github.com/user-attachments/assets/0fab8b04-2786-4819-84fa-470ca72188ff)
 <br>
