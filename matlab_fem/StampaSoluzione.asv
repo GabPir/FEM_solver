@@ -1,0 +1,10 @@
+function StampaSoluzione(indice_figura)
+    global geom EleMid MidCoordinates u;
+    
+    
+    T = [geom.elements.triangles, EleMid];
+    x = [geom.elements.coordinates(:,1); MidCoordinates(:,1)];
+    y = [geom.elements.coordinates(:,1); MidCoordinates(:,2)];
+    trisurf(T, x, y, u)
+    sol = u_esatta(x,geom.elements.coordinates(:,2)])
+end 

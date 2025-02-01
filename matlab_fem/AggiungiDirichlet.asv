@@ -1,0 +1,18 @@
+function [] = AggiungiDirichlet()
+    global geom gd Nd NdMid MidCoordinates pivotMidDi;
+    
+    for i=1:Nd
+        x = geom.elements.coordinates(geom.pivot.Di(i,1),1);
+        y = geom.elements.coordinates(geom.pivot.Di(i,1),2);
+        gd(i) = gd_fun(x, y, geom.pivot.Di(i,2)); 
+    end 
+    xmid = MidCoordinates(:,1);
+    ymid = MidCoordinates(:,2);
+
+    for i=1:NdMid
+        j = Nd+i;
+        gd(j) = gd_fun(xmid(i), ymid(y), pivotMidDi(i,2));
+    end
+
+
+end

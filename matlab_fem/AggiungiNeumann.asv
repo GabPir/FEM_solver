@@ -1,0 +1,70 @@
+function [] = AggiungiNeumann()
+    global geom gn pivotMidNe pivotMid;
+    
+    % pesi quadratura nel segmento -1,1 trasformati nel caso 0,1
+    % (accuratezza fino ad ordine 5)
+
+    t = [0.046910077030668, 0.230765344947158, 0.5, 0.769234655052842, 0.953089922969332];
+    w = [0.118463442528095, 0.239314335249683, 0.284444444444444, 0.239314335249683, 0.118463442528095];
+    t = 0.5 * t + 0.5;
+    w = 0.5 * w;
+
+
+    % Valutazione delle funzioni nei possibili punti
+    phib = 2*t(1,:).^2 - 3.*t(1,:) +1;  %phi beginning
+    phim = -4.*t(1,:).^2 + 4.*t(1,:); %phi midpoint
+    phie = 2.*t(1,:).^2 - t(1,:); %phi end
+    
+
+
+
+
+    Nb = length(geom.pivot.Ne(:,1));
+    for b =1:Nb
+        V = [];
+        Vb = geom.elements.borders(geom.pivot.Ne(b,1),1); 
+        Ve = geom.elements.borders(geom.pivot.Ne(b,1),2);
+        E_norm = norm(geom.elements.coordinates(Vb,:)-geom.elements.coordinates(Ve,:),2);
+        
+        xb = geom.elements.coordinates(Vb,1);
+        yb = geom.elements.coordinates(Vb,2);
+        xe = geom.elements.coordinates(Ve,1);
+        ye = geom.elements.coordinates(Ve,2);
+        
+        ii = geom.pivot.pivot(Vb);
+        if ii > 0 % se fosse negativo sarebbe di Dirichlet (ha priorità)  
+            temp = 0;
+            for k = 1:5
+                temp = temp + w(k)*gn_fun(xb+(xe-xb)*t(k), yb+(ye-yb)*t(k), geom.pivot.Ne(ii,2))*phib(k)*E_norm;
+            end
+            disp("----")
+            gn(ii) = gn(ii) + temp; 
+        end
+
+        ii = geom.pivot.pivot(Ve);
+        if ii > 0   
+            temp = 0;
+            for k = 1:5
+                temp = temp + w(k)*gn_fun(xb+(xe-xb)*t(k), yb+(ye-yb)*t(k), geom.pivot.Ne(ii,2))*phie(k)*E_norm;
+            end
+            gn(ii) = gn(ii) + temp; 
+        end
+
+
+        ii = pivotMid(b,1);  % prima dato un lato avevi due nodi, ora dato un lato stai già identificando quale nodo interno stai considerando
+        if ii > 0 
+            temp = 0;
+            for k = 1:5
+                temp = temp + w(k)*gn_fun(xb+(xe-xb)*t(k), yb+(ye-yb)*t(k), pivotMidNe(ii,2))*phim(k)*E_norm;
+            end
+
+            gn(ii+geom.nelements.nVertexes) = gn(ii+geom.nelements.nVertexes) + w(k)*temp
+        end
+
+        disp("----")
+    end
+    
+
+
+
+end
